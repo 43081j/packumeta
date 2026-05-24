@@ -1,0 +1,59 @@
+{
+  "name": "pkgmeta",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "description": "A library to extract package metadata from npm registry documents",
+  "keywords": [
+    "npm",
+    "registry",
+    "metadata",
+    "package"
+  ],
+  "files": [
+    "lib",
+    "!lib/**/*.test.js",
+    "!lib/**/*.test.d.ts"
+  ],
+  "homepage": "https://github.com/43081j/pkgmeta#readme",
+  "bugs": {
+    "url": "https://github.com/43081j/pkgmeta/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/43081j/pkgmeta.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "author": "James Garbutt (https://github.com/43081j)",
+  "type": "module",
+  "main": "./lib/main.js",
+  "types": "./lib/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/main.d.ts",
+      "default": "./lib/main.js"
+    }
+  },
+  "scripts": {
+    "build:clean": "node -e \"require('fs').rmSync('./lib', { recursive: true, force: true })\"",
+    "build": "npm run build:clean && tsgo",
+    "lint:js": "oxlint src",
+    "lint:format": "oxfmt --check src",
+    "lint": "npm run lint:js && npm run lint:format",
+    "format": "oxfmt --write src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20260519.1",
+    "@vitest/coverage-v8": "^4.1.5",
+    "oxfmt": "^0.48.0",
+    "oxlint": "^1.63.0",
+    "vitest": "^4.1.7"
+  }
+}
