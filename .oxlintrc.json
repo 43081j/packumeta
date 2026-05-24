@@ -9,7 +9,9 @@
     "perf": "error",
     "suspicious": "error"
   },
-  "rules": {},
+  "rules": {
+    "no-underscore-dangle": "off"
+  },
   "env": {
     "builtin": true
   }
