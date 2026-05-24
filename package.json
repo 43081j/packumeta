@@ -52,7 +52,7 @@
   "devDependencies": {
     "@typescript/native-preview": "^7.0.0-dev.20260519.1",
     "@vitest/coverage-v8": "^4.1.5",
-    "oxfmt": "^0.48.0",
+    "oxfmt": "^0.51.0",
     "oxlint": "^1.63.0",
     "vitest": "^4.1.7"
   }
