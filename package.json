@@ -1,5 +1,5 @@
 {
-  "name": "pkgmeta",
+  "name": "packumeta",
   "version": "0.1.0",
   "engines": {
     "node": ">=20.0.0"
@@ -16,13 +16,13 @@
     "!lib/**/*.test.js",
     "!lib/**/*.test.d.ts"
   ],
-  "homepage": "https://github.com/43081j/pkgmeta#readme",
+  "homepage": "https://github.com/43081j/packumeta#readme",
   "bugs": {
-    "url": "https://github.com/43081j/pkgmeta/issues"
+    "url": "https://github.com/43081j/packumeta/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/43081j/pkgmeta.git"
+    "url": "git+https://github.com/43081j/packumeta.git"
   },
   "publishConfig": {
     "access": "public"
