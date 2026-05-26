@@ -342,3 +342,45 @@ describe('isSupportedArchitecture', () => {
     ).toBe(false);
   });
 });
+
+describe('getTrustLevelName', () => {
+  it('should return "stagedPublish" if stagedPublish is true', () => {
+    expect(
+      meta.getTrustLevelName({
+        provenance: false,
+        trustedPublisher: false,
+        stagedPublish: true,
+      }),
+    ).toBe('stagedPublish');
+  });
+
+  it('should return "trustedPublisher" if both trustedPublisher and provenance are true', () => {
+    expect(
+      meta.getTrustLevelName({
+        provenance: true,
+        trustedPublisher: true,
+        stagedPublish: false,
+      }),
+    ).toBe('trustedPublisher');
+  });
+
+  it('should return "provenance" if only provenance is true', () => {
+    expect(
+      meta.getTrustLevelName({
+        provenance: true,
+        trustedPublisher: false,
+        stagedPublish: false,
+      }),
+    ).toBe('provenance');
+  });
+
+  it('should return "none" if neither property is true', () => {
+    expect(
+      meta.getTrustLevelName({
+        provenance: false,
+        trustedPublisher: false,
+        stagedPublish: false,
+      }),
+    ).toBe('none');
+  });
+});

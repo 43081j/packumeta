@@ -54,6 +54,24 @@ export function getTrustLevel(status: TrustStatus): number {
   return 0;
 }
 
+export type TrustLevelName =
+  | 'none'
+  | 'provenance'
+  | 'trustedPublisher'
+  | 'stagedPublish';
+
+const trustLevelNames: Record<number, TrustLevelName> = {
+  0: 'none',
+  1: 'provenance',
+  2: 'trustedPublisher',
+  3: 'stagedPublish',
+};
+
+export function getTrustLevelName(status: TrustStatus): TrustLevelName {
+  const level = getTrustLevel(status);
+  return trustLevelNames[level] ?? 'none';
+}
+
 export function getTrustOrder(a: TrustStatus, b: TrustStatus): -1 | 0 | 1 {
   const levelA = getTrustLevel(a);
   const levelB = getTrustLevel(b);
