@@ -38,6 +38,14 @@ export function getTrustStatus(meta: unknown): TrustStatus {
   ) {
     status.provenance = true;
   }
+  // For now, we sniff the staging status out by the fact staged publishes
+  // always have _id as the first key and no other type of packument version
+  // does.
+  // TODO (jg): do this a less _true hacks_ way
+  const firstKey = Object.keys(meta)[0];
+  if (firstKey === '_id') {
+    status.stagedPublish = true;
+  }
   return status;
 }
 
