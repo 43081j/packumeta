@@ -110,6 +110,53 @@ describe('getTrustStatus', () => {
       stagedPublish: false,
     });
   });
+
+  it('should set stagedPublish to true if the first key of meta is _id', () => {
+    expect(
+      meta.getTrustStatus({
+        _id: 'some-package@1.0.0',
+        otherKey: 'value',
+      }),
+    ).toEqual({
+      provenance: false,
+      trustedPublisher: false,
+      stagedPublish: true,
+    });
+  });
+
+  it('should set stagedPublish in addition to provenance', () => {
+    expect(
+      meta.getTrustStatus({
+        _id: 'some-package@1.0.0',
+        dist: {
+          attestations: {
+            url: 'https://example.com/provenance.json',
+            provenance: {
+              predicateType: 'https://slsa.dev/provenance/v1',
+            },
+          },
+        },
+      }),
+    ).toEqual({
+      provenance: true,
+      trustedPublisher: false,
+      stagedPublish: true,
+    });
+  });
+
+  it('should set stagedPublish to false when the first key of meta is not _id', () => {
+    expect(
+      meta.getTrustStatus({
+        name: 'some-package',
+        _id: 'some-package@1.0.0',
+        version: '1.0.0',
+      }),
+    ).toEqual({
+      provenance: false,
+      trustedPublisher: false,
+      stagedPublish: false,
+    });
+  });
 });
 
 describe('getTrustLevel', () => {
