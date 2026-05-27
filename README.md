@@ -39,7 +39,8 @@ The `getTrustLevel` and `getTrustOrder` functions rely on a _trust scale_. This 
 | 0     | None              | The package has no trust status.                                                                                     |
 
 > [!NOTE]
-> The staged publishing trust status is currently unavailable until npm implements a signal in the packument to indicate that a package was published through `npm stage publish`. Once this signal is available, the trust status will be updated accordingly.
+> The staged publishing trust status is currently sniffed from the packument until npm implements a signal to indicate that a package was published through `npm stage publish`. Once this signal is available, the trust status will be updated accordingly.
+> For now, we are using an unfortunate hack which does seem somewhat accurate.
 
 ## License
 
