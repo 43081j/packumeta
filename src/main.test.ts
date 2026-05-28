@@ -111,11 +111,18 @@ describe('getTrustStatus', () => {
     });
   });
 
-  it('should set stagedPublish to true if the first key of meta is _id', () => {
+  it('should set stagedPublish to true if the approver is set', () => {
     expect(
       meta.getTrustStatus({
         _id: 'some-package@1.0.0',
-        otherKey: 'value',
+        _npmUser: {
+          name: 'james',
+          email: 'james@that-random-number.dev',
+          approver: {
+            name: 'not-james',
+            email: 'not@that-random-number.dev',
+          },
+        },
       }),
     ).toEqual({
       provenance: false,
@@ -128,6 +135,14 @@ describe('getTrustStatus', () => {
     expect(
       meta.getTrustStatus({
         _id: 'some-package@1.0.0',
+        _npmUser: {
+          name: 'james',
+          email: 'james@that-random-number.dev',
+          approver: {
+            name: 'not-james',
+            email: 'not@that-random-number.dev',
+          },
+        },
         dist: {
           attestations: {
             url: 'https://example.com/provenance.json',
@@ -144,12 +159,17 @@ describe('getTrustStatus', () => {
     });
   });
 
-  it('should set stagedPublish to false when the first key of meta is not _id', () => {
+  it('should set stagedPublish to false when the approver is empty', () => {
     expect(
       meta.getTrustStatus({
-        name: 'some-package',
         _id: 'some-package@1.0.0',
+        name: 'some-package',
         version: '1.0.0',
+        _npmUser: {
+          name: 'james',
+          email: 'james@that-random-number.dev',
+          approver: null,
+        },
       }),
     ).toEqual({
       provenance: false,
