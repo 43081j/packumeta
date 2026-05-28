@@ -38,9 +38,31 @@ The `getTrustLevel` and `getTrustOrder` functions rely on a _trust scale_. This 
 | 1     | Provenance        | The package has a provenance record, but was not published using trusted publishing.                                 |
 | 0     | None              | The package has no trust status.                                                                                     |
 
-> [!NOTE]
-> The staged publishing trust status is currently sniffed from the packument until npm implements a signal to indicate that a package was published through `npm stage publish`. Once this signal is available, the trust status will be updated accordingly.
-> For now, we are using an unfortunate hack which does seem somewhat accurate.
+## API
+
+### `getTrustStatus(meta)`
+
+Returns a `TrustStatus` object (`{ provenance, trustedPublisher, stagedPublish }`) derived from a packument version document.
+
+### `getTrustLevel(status)`
+
+Returns the numeric trust level for a `TrustStatus`. See the [Trust Scale](#trust-scale).
+
+### `getTrustLevelName(status)`
+
+Returns the trust level as a string: `'none'`, `'provenance'`, `'trustedPublisher'`, or `'stagedPublish'`.
+
+### `getTrustOrder(a, b)`
+
+Comparator for two `TrustStatus` values. Returns `-1`, `0`, or `1`, suitable for use with `Array#sort`.
+
+### `didDecreaseInTrust(oldStatus, newStatus)`
+
+Returns `true` if `newStatus` has a lower trust level than `oldStatus`.
+
+### `isSupportedArchitecture(pkg, os, cpu, libc)`
+
+Returns `true` if the package's `os`, `cpu`, and `libc` fields are compatible with the given platform.
 
 ## License
 
