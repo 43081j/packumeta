@@ -20,13 +20,16 @@ export function getTrustStatus(meta: unknown): TrustStatus {
   if (!isObject(meta)) {
     return status;
   }
-  if (
-    hasOwn(meta, '_npmUser') &&
-    isObject(meta._npmUser) &&
-    hasOwn(meta._npmUser, 'trustedPublisher') &&
-    meta._npmUser.trustedPublisher
-  ) {
-    status.trustedPublisher = true;
+  if (hasOwn(meta, '_npmUser') && isObject(meta._npmUser)) {
+    if (
+      hasOwn(meta._npmUser, 'trustedPublisher') &&
+      meta._npmUser.trustedPublisher
+    ) {
+      status.trustedPublisher = true;
+    }
+    if (hasOwn(meta._npmUser, 'approver') && meta._npmUser.approver) {
+      status.stagedPublish = true;
+    }
   }
   if (
     hasOwn(meta, 'dist') &&
@@ -37,14 +40,6 @@ export function getTrustStatus(meta: unknown): TrustStatus {
     meta.dist.attestations.provenance
   ) {
     status.provenance = true;
-  }
-  // For now, we sniff the staging status out by the fact staged publishes
-  // always have _id as the first key and no other type of packument version
-  // does.
-  // TODO (jg): do this a less _true hacks_ way
-  const firstKey = Object.keys(meta)[0];
-  if (firstKey === '_id') {
-    status.stagedPublish = true;
   }
   return status;
 }
