@@ -50,10 +50,10 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@typescript/native-preview": "^7.0.0-dev.20260527.2",
-    "@vitest/coverage-v8": "^4.1.5",
-    "oxfmt": "^0.52.0",
-    "oxlint": "^1.67.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260607.1",
+    "@vitest/coverage-v8": "^4.1.8",
+    "oxfmt": "^0.53.0",
+    "oxlint": "^1.68.0",
     "vitest": "^4.1.7"
   }
 }
