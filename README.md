@@ -33,8 +33,9 @@ The `getTrustLevel` and `getTrustOrder` functions rely on a _trust scale_. This 
 
 | Level | Trust Status      | Description                                                                                                          |
 | ----- | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
-| 3     | Staged publishing | The package was published through `npm stage publish`, i.e. it passed a 2FA approval process before being published. |
-| 2     | OIDC & provenance | The package was published using trusted publishing (OIDC) and has a provenance record.                               |
+| 4     | Staged publishing | The package was published through `npm stage publish`, i.e. it passed a 2FA approval process before being published. |
+| 3     | OIDC & provenance | The package was published using trusted publishing (OIDC) and has a provenance record.                               |
+| 2     | OIDC              | The package was published using trusted publishing (OIDC), but has no provenance record.                             |
 | 1     | Provenance        | The package has a provenance record, but was not published using trusted publishing.                                 |
 | 0     | None              | The package has no trust status.                                                                                     |
 
@@ -50,7 +51,7 @@ Returns the numeric trust level for a `TrustStatus`. See the [Trust Scale](#trus
 
 ### `getTrustLevelName(status)`
 
-Returns the trust level as a string: `'none'`, `'provenance'`, `'trustedPublisher'`, or `'stagedPublish'`.
+Returns the trust level as a string: `'none'`, `'provenance'`, `'oidc'`, `'trustedPublisher'`, or `'stagedPublish'`.
 
 ### `getTrustOrder(a, b)`
 
