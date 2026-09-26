@@ -46,9 +46,12 @@ export function getTrustStatus(meta: unknown): TrustStatus {
 
 export function getTrustLevel(status: TrustStatus): number {
   if (status.stagedPublish) {
-    return 3;
+    return 4;
   }
   if (status.trustedPublisher && status.provenance) {
+    return 3;
+  }
+  if (status.trustedPublisher) {
     return 2;
   }
   if (status.provenance) {
@@ -61,13 +64,15 @@ export type TrustLevelName =
   | 'none'
   | 'provenance'
   | 'trustedPublisher'
+  | 'trustedPublisherWithProvenance'
   | 'stagedPublish';
 
 const trustLevelNames: Record<number, TrustLevelName> = {
   0: 'none',
   1: 'provenance',
   2: 'trustedPublisher',
-  3: 'stagedPublish',
+  3: 'trustedPublisherWithProvenance',
+  4: 'stagedPublish',
 };
 
 export function getTrustLevelName(status: TrustStatus): TrustLevelName {
