@@ -280,8 +280,8 @@ describe('getTrustLevelName', () => {
   it.each([
     [false, false, false, 'none'],
     [true, false, false, 'provenance'],
-    [false, true, false, 'oidc'],
-    [true, true, false, 'trustedPublisher'],
+    [false, true, false, 'trustedPublisher'],
+    [true, true, false, 'trustedPublisherWithProvenance'],
     [false, false, true, 'stagedPublish'],
   ] as const)(
     'should return the name for provenance=%s trustedPublisher=%s stagedPublish=%s',
@@ -466,14 +466,14 @@ describe('getTrustLevelName', () => {
     ).toBe('stagedPublish');
   });
 
-  it('should return "trustedPublisher" if both trustedPublisher and provenance are true', () => {
+  it('should return "trustedPublisherWithProvenance" if both trustedPublisher and provenance are true', () => {
     expect(
       meta.getTrustLevelName({
         provenance: true,
         trustedPublisher: true,
         stagedPublish: false,
       }),
-    ).toBe('trustedPublisher');
+    ).toBe('trustedPublisherWithProvenance');
   });
 
   it('should return "provenance" if only provenance is true', () => {

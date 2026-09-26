@@ -63,15 +63,15 @@ export function getTrustLevel(status: TrustStatus): number {
 export type TrustLevelName =
   | 'none'
   | 'provenance'
-  | 'oidc'
   | 'trustedPublisher'
+  | 'trustedPublisherWithProvenance'
   | 'stagedPublish';
 
 const trustLevelNames: Record<number, TrustLevelName> = {
   0: 'none',
   1: 'provenance',
-  2: 'oidc',
-  3: 'trustedPublisher',
+  2: 'trustedPublisher',
+  3: 'trustedPublisherWithProvenance',
   4: 'stagedPublish',
 };
 

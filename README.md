@@ -51,7 +51,7 @@ Returns the numeric trust level for a `TrustStatus`. See the [Trust Scale](#trus
 
 ### `getTrustLevelName(status)`
 
-Returns the trust level as a string: `'none'`, `'provenance'`, `'oidc'`, `'trustedPublisher'`, or `'stagedPublish'`.
+Returns the trust level as a string: `'none'`, `'provenance'`, `'trustedPublisher'`, `'trustedPublisherWithProvenance'`, or `'stagedPublish'`.
 
 ### `getTrustOrder(a, b)`
 
