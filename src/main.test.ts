@@ -180,20 +180,30 @@ describe('getTrustStatus', () => {
 });
 
 describe('getTrustLevel', () => {
-  it('should return 3 if stagedPublish is true', () => {
+  it('should return 4 if stagedPublish is true', () => {
     expect(
       meta.getTrustLevel({
         provenance: false,
         trustedPublisher: false,
         stagedPublish: true,
       }),
-    ).toBe(3);
+    ).toBe(4);
   });
 
-  it('should return 2 if both trustedPublisher and provenance are true', () => {
+  it('should return 3 if both trustedPublisher and provenance are true', () => {
     expect(
       meta.getTrustLevel({
         provenance: true,
+        trustedPublisher: true,
+        stagedPublish: false,
+      }),
+    ).toBe(3);
+  });
+
+  it('should return 2 if only trustedPublisher is true', () => {
+    expect(
+      meta.getTrustLevel({
+        provenance: false,
         trustedPublisher: true,
         stagedPublish: false,
       }),
@@ -266,7 +276,42 @@ describe('getTrustOrder', () => {
   });
 });
 
+describe('getTrustLevelName', () => {
+  it.each([
+    [false, false, false, 'none'],
+    [true, false, false, 'provenance'],
+    [false, true, false, 'trustedPublisher'],
+    [true, true, false, 'trustedPublisherWithProvenance'],
+    [false, false, true, 'stagedPublish'],
+  ] as const)(
+    'should return the name for provenance=%s trustedPublisher=%s stagedPublish=%s',
+    (provenance, trustedPublisher, stagedPublish, name) => {
+      expect(
+        meta.getTrustLevelName({ provenance, trustedPublisher, stagedPublish }),
+      ).toBe(name);
+    },
+  );
+});
+
 describe('didDecreaseInTrust', () => {
+  it('should return true if provenance is lost while keeping trustedPublisher', () => {
+    expect(
+      meta.didDecreaseInTrust(
+        { provenance: true, trustedPublisher: true, stagedPublish: false },
+        { provenance: false, trustedPublisher: true, stagedPublish: false },
+      ),
+    ).toBe(true);
+  });
+
+  it('should return true if trustedPublisher is lost', () => {
+    expect(
+      meta.didDecreaseInTrust(
+        { provenance: false, trustedPublisher: true, stagedPublish: false },
+        { provenance: false, trustedPublisher: false, stagedPublish: false },
+      ),
+    ).toBe(true);
+  });
+
   it('should return true if newStatus has a lower trust level than oldStatus', () => {
     expect(
       meta.didDecreaseInTrust(
@@ -421,14 +466,14 @@ describe('getTrustLevelName', () => {
     ).toBe('stagedPublish');
   });
 
-  it('should return "trustedPublisher" if both trustedPublisher and provenance are true', () => {
+  it('should return "trustedPublisherWithProvenance" if both trustedPublisher and provenance are true', () => {
     expect(
       meta.getTrustLevelName({
         provenance: true,
         trustedPublisher: true,
         stagedPublish: false,
       }),
-    ).toBe('trustedPublisher');
+    ).toBe('trustedPublisherWithProvenance');
   });
 
   it('should return "provenance" if only provenance is true', () => {
